@@ -33,7 +33,19 @@ Drop a Markdown file in `src/content/blog/` with frontmatter (`title`, `descript
 
 `.github/workflows/deploy.yml` builds with Astro and publishes to GitHub Pages. It is **manual-only** (`workflow_dispatch`) for now. At launch: add a `push` trigger on `main`, make the repo public, and set Settings → Pages → Source: **GitHub Actions**.
 
+## Keeping figures in sync with the repo
+
+The **speed figures** (hero + `/compare/`) and the **benchmark chart / demo GIF** are generated artifacts of the flagship repo. They live in `src/data/benchmarks.json` and `public/assets/`, and are refreshed by:
+
+```sh
+npm run sync            # reads ../provenant (a sibling checkout) by default
+npm run sync -- /path/to/provenant
+```
+
+The script parses `docs/BENCHMARKS.md` for the headline numbers and copies `docs/scan-duration-vs-files.svg` + `docs/provenant-demo.gif`. So the flow is: regenerate the artifacts in the flagship repo → `npm run sync` here → commit. (A CI step could run this automatically on release; for now it's manual.)
+
+The **per-repo comparison specifics** on `/compare/` (curl / Redis / tokio deltas + snippets) come from ad-hoc `compare-outputs` runs, not a standing artifact, so they stay hand-maintained and are refreshed on each stable release.
+
 ## Maintenance notes
 
-- **Speed figures** on `/compare/` come from `provenant/docs/BENCHMARKS.md`. **Quality figures** (curl, Redis) come from `compare-outputs` runs at the commits noted on the page; regenerate and refresh on each stable Provenant release.
-- Keep ScanCode out of the landing-page hero/branding; it appears only as factual comparison on `/compare/` and as lineage in the blog. Keep the non-affiliation disclaimer in the footer.
+- Keep ScanCode out of the landing-page hero/branding; it appears only as factual comparison on `/compare/` and as lineage in the blog. A single non-affiliation/trademark note lives on `/compare/` (nominative use — not legally required elsewhere).

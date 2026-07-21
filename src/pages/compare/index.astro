@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import bench from '../../data/benchmarks.json';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -32,9 +33,9 @@ const jsonLd = {
 
     <section>
       <div class="big-metrics">
-        <div class="m"><div class="n tabnums">19.7<span class="u">×</span></div><div class="l">median &amp; geometric-mean speedup (254 / 254 runs)</div></div>
-        <div class="m"><div class="n tabnums">9→37<span class="u">×</span></div><div class="l">grows with size (sub-100 → 10k+ files)</div></div>
-        <div class="m"><div class="n tabnums">70.7<span class="u">×</span></div><div class="l">fastest measured (CPython)</div></div>
+        <div class="m"><div class="n tabnums">{bench.medianSpeedup}<span class="u">×</span></div><div class="l">median &amp; geometric-mean speedup ({bench.runs} / {bench.runs} runs)</div></div>
+        <div class="m"><div class="n tabnums">{bench.sizeRangeLow}→{bench.sizeRangeHigh}<span class="u">×</span></div><div class="l">grows with size (sub-100 → 10k+ files)</div></div>
+        <div class="m"><div class="n tabnums">{bench.fastest}<span class="u">×</span></div><div class="l">fastest measured (CPython)</div></div>
       </div>
 
       <figure class="chart">

@@ -44,7 +44,7 @@ const jsonLd = {
       </figure>
 
       <div class="method">
-        <b>How this was measured.</b> Both scanners run on identical checkouts at pinned commits, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below are from development-build comparison runs (commits noted per repo) and are refreshed on each stable release.
+        <b>How this was measured.</b> Both scanners run on identical checkouts at pinned commits, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below come from a run on the current build (Provenant 0.2.8) at the commit noted, refreshed on each stable release.
       </div>
     </section>
 
@@ -53,9 +53,9 @@ const jsonLd = {
       <p class="tagline">The reference and Provenant agree on nearly every license conclusion. Where they diverge on copyright, Provenant is the more faithful of the two.</p>
       <div class="scorecard">
         <div class="s"><div class="sv tabnums">4,266</div><div class="sl">files compared</div></div>
-        <div class="s"><div class="sv tabnums">~5</div><div class="sl">files whose license detection differs</div></div>
-        <div class="s"><div class="sv pv tabnums">2,005</div><div class="sl">signals favoring Provenant</div></div>
-        <div class="s"><div class="sv tabnums">1,766</div><div class="sl">signals favoring ScanCode</div></div>
+        <div class="s"><div class="sv pv tabnums">99.9%</div><div class="sl">identical license detection (4,260 files)</div></div>
+        <div class="s"><div class="sv tabnums">3 + 3</div><div class="sl">files where a detection differs (PV-only / SC-only)</div></div>
+        <div class="s"><div class="sv pv tabnums">526</div><div class="sl">files where PV keeps the fuller copyright</div></div>
       </div>
       <div class="delta">
         <div class="dh"><span class="pill pill-teal">Copyright fidelity</span><h3>The same copyright — one scanner keeps all of it</h3></div>
@@ -63,23 +63,11 @@ const jsonLd = {
         <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;<span class="keep">, et al.</span> <span class="keep">SPDX-License-Identifier: curl</span></span><span class="ct">×526 files</span></div>
         <div class="why">curl's file headers read <code>Copyright (C) Daniel Stenberg, &lt;daniel@haxx.se&gt;, et al.</code> followed by <code>SPDX-License-Identifier: curl</code>. ScanCode drops the <b>"et al."</b> — which legally signals that <b>other copyright holders exist</b> — and the SPDX identifier. Provenant reports the statement as written. It's the <b>same copyright</b>, rendered faithfully instead of trimmed.</div>
       </div>
-      <div class="repro"><span class="k">repo</span> <span class="v">curl/curl @ 2bb5c9b</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">dev build (0.1.x)</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+      <div class="repro"><span class="k">repo</span> <span class="v">curl/curl @ 2bb5c9b</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">0.2.8</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
     </section>
 
     <section class="repo">
-      <h2>Redis <span class="repo-mono">github.com/redis/redis</span></h2>
-      <p class="tagline">Copyright findings are essentially even. On license evidence, Provenant is the more thorough of the two — especially inside vendored dependencies.</p>
-      <div class="scorecard">
-        <div class="s"><div class="sv tabnums">1,801</div><div class="sl">files compared</div></div>
-        <div class="s"><div class="sv pv tabnums">317</div><div class="sl">signals favoring Provenant</div></div>
-        <div class="s"><div class="sv tabnums">155</div><div class="sl">signals favoring ScanCode</div></div>
-        <div class="s"><div class="sv tabnums">33 / 33</div><div class="sl">copyright findings — even</div></div>
-      </div>
-      <div class="repro"><span class="k">repo</span> <span class="v">redis/redis @ 5b5c326</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">dev build (0.2.x)</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
-    </section>
-
-    <section class="repo">
-      <p style="color:var(--ink-soft)">These are two repositories from a much larger benchmark set. The full timing table across 254 recorded runs — with every commit pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
+      <p style="color:var(--ink-soft)">This is one worked example from a much larger benchmark set. The full timing table across 254 recorded runs — with every commit pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
       <div class="cta-row" style="margin-top:1.2rem">
         <a class="btn btn-primary" href="https://github.com/getprovenant/provenant#quick-start">Try Provenant</a>
         <a class="btn btn-ghost" href="/blog/the-provenant-story/">Read the story →</a>

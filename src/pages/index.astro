@@ -41,13 +41,13 @@ const jsonLd = {
           <div class="metric"><div class="n tabnums">19.7<span class="u">×</span></div><div class="l">median speedup over the reference (254/254 runs)</div></div>
           <div class="metric"><div class="n tabnums">37<span class="u">×</span></div><div class="l">on large 10k+-file repositories</div></div>
           <div class="metric"><div class="n">0<span class="u"> deps</span></div><div class="l">static binary — no runtime to install</div></div>
-          <div class="metric"><div class="n">SLSA</div><div class="l">build-provenance on every release</div></div>
+          <div class="metric"><div class="n">Signed</div><div class="l">verifiable build provenance on every release</div></div>
         </div>
       </div>
 
       <div class="wrap-wide demo">
         <figure>
-          <img src="/assets/provenant-demo.gif" width="1080" height="480" alt="Provenant and ScanCode scanning the astral-sh/uv repository side by side; Provenant finishes many times sooner." />
+          <img src="/assets/provenant-demo.gif" width="1500" height="660" alt="Provenant and ScanCode scanning the astral-sh/uv repository side by side; Provenant finishes many times sooner." />
           <figcaption><span class="pill pill-teal">live</span> Provenant (left) and the reference scanner racing the same <code>astral-sh/uv</code> repository.</figcaption>
         </figure>
       </div>
@@ -70,7 +70,7 @@ const jsonLd = {
           <div class="pcard"><div class="h"><h3>Compatible</h3><span class="tag">drop-in</span></div>
             <p>Emits ScanCode-compatible JSON so it fits existing workflows, while its own goal is simply the best practical scan result — plus SPDX and CycloneDX SBOMs.</p></div>
           <div class="pcard"><div class="h"><h3>Trustworthy to ship</h3><span class="tag">attested</span></div>
-            <p>Every release binary and container image carries SLSA build-provenance attestation, so you can cryptographically verify what you run.</p></div>
+            <p>Every release binary and container image carries SLSA build-provenance attestation — a signed, verifiable record of how and where it was built — so you can cryptographically verify what you run.</p></div>
         </div>
       </div>
     </section>
@@ -136,7 +136,9 @@ const jsonLd = {
   .band h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); margin: 0 0 0.6rem; font-weight: 640; }
   .band .lead { color: var(--ink-soft); max-width: 42rem; margin: 0 0 2.2rem; }
 
-  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  @media (max-width: 900px) { .pillars { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .pillars { grid-template-columns: 1fr; } }
   .pcard { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem 1.35rem; }
   .pcard .h { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.5rem; }
   .pcard h3 { font-size: 1.1rem; margin: 0; font-weight: 640; }

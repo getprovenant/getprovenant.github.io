@@ -15,7 +15,7 @@ const {
   description,
   path,
   ogType = 'website',
-  ogImage = '/assets/provenant-demo.gif',
+  ogImage = '/assets/provenant-social-preview.png',
   current,
 } = Astro.props;
 
@@ -32,8 +32,8 @@ const ogImageAbs = new URL(ogImage, site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#0c8f74" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0d1214" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f0e8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171b24" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
@@ -53,7 +53,7 @@ const ogImageAbs = new URL(ogImage, site).href;
   <body>
     <header class="site-head">
       <div class="wrap-wide bar">
-        <a class="brand" href="/"><span class="seal">◆</span> prove<b>n</b>ant</a>
+        <a class="brand" href="/"><img src="/assets/provenant-mark.svg" alt="" width="24" height="24" /> Provenant</a>
         <nav class="nav">
           <a class="hide-sm" href="/#why" aria-current={current === 'why' ? 'page' : undefined}>Why</a>
           <a href="/compare/" aria-current={current === 'compare' ? 'page' : undefined}>Compare</a>
@@ -69,7 +69,7 @@ const ogImageAbs = new URL(ogImage, site).href;
       <div class="wrap-wide">
         <div class="cols">
           <div class="brandcol">
-            <a class="brand" href="/"><span class="seal">◆</span> prove<b>n</b>ant</a>
+            <a class="brand" href="/"><img src="/assets/provenant-mark.svg" alt="" width="24" height="24" /> Provenant</a>
             <p style="color:var(--ink-soft); font-size:0.92rem; margin:0.6rem 0 0;">
               A fast, source-faithful license, copyright, package, and SBOM scanner. Open source under Apache-2.0.
             </p>
@@ -90,10 +90,6 @@ const ogImageAbs = new URL(ogImage, site).href;
               <li><a href="/blog/engineering-the-loop/">Engineering the Loop</a></li>
             </ul>
           </div>
-        </div>
-        <div class="disclaimer">
-          Provenant is an independent project and is not affiliated with or endorsed by nexB Inc. or the AboutCode project.
-          <span class="mono">ScanCode is a trademark of nexB Inc.</span>
         </div>
       </div>
     </footer>

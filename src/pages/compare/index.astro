@@ -43,11 +43,6 @@ const jsonLd = {
         <figcaption>Scan duration vs. file count, log-log. Provenant (lower is faster) stays below the reference across the whole range, and the gap widens with size.</figcaption>
       </figure>
 
-      <figure class="chart">
-        <img src="/assets/provenant-demo.gif" alt="Provenant and ScanCode scanning astral-sh/uv side by side; Provenant finishes many times sooner." />
-        <figcaption>Provenant (left) and ScanCode racing the same <code>astral-sh/uv</code> checkout — 28.8× faster on this run.</figcaption>
-      </figure>
-
       <div class="method">
         <b>How this was measured.</b> Both scanners run on identical checkouts at pinned commits, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below are from development-build comparison runs (commits noted per repo) and are refreshed on each stable release.
       </div>
@@ -68,11 +63,6 @@ const jsonLd = {
         <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;<span class="keep">, et al.</span> <span class="keep">SPDX-License-Identifier: curl</span></span><span class="ct">×526 files</span></div>
         <div class="why">curl's file headers read <code>Copyright (C) Daniel Stenberg, &lt;daniel@haxx.se&gt;, et al.</code> followed by <code>SPDX-License-Identifier: curl</code>. ScanCode drops the <b>"et al."</b> — which legally signals that <b>other copyright holders exist</b> — and the SPDX identifier. Provenant reports the statement as written. It's the <b>same copyright</b>, rendered faithfully instead of trimmed.</div>
       </div>
-      <div class="delta">
-        <div class="dh"><span class="pill pill-teal">License clues</span><h3>More supporting evidence surfaced</h3></div>
-        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">surfaces <span class="keep">25</span> license clues ScanCode does not</span><span class="ct">+25 / −11</span></div>
-        <div class="why">License <em>clues</em> are secondary signals — references and identifiers that aren't a full detection but document where license evidence appears. Provenant records more of them here, net, giving reviewers a fuller trail.</div>
-      </div>
       <div class="repro"><span class="k">repo</span> <span class="v">curl/curl @ 2bb5c9b</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">dev build (0.1.x)</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
     </section>
 
@@ -85,16 +75,6 @@ const jsonLd = {
         <div class="s"><div class="sv tabnums">155</div><div class="sl">signals favoring ScanCode</div></div>
         <div class="s"><div class="sv tabnums">33 / 33</div><div class="sl">copyright findings — even</div></div>
       </div>
-      <div class="delta">
-        <div class="dh"><span class="pill pill-teal">Detection thoroughness</span><h3>License evidence inside vendored code</h3></div>
-        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">surfaces <span class="keep">32</span> license clues ScanCode does not</span><span class="ct">+32 / −3</span></div>
-        <ul class="filelist">
-          <li><span class="path">deps/jemalloc/build-aux/config.guess</span><span class="arrow">→</span><span class="lic">bsd-new</span></li>
-          <li><span class="path">deps/linenoise/linenoise.c</span><span class="arrow">→</span><span class="lic">bsd-new</span></li>
-          <li><span class="path">src/rand.c</span><span class="arrow">→</span><span class="lic">public-domain</span></li>
-        </ul>
-        <div class="why">The extra evidence clusters in <b>bundled third-party dependencies</b> — jemalloc, linenoise — and in individual source files. Provenant reads license clues inside vendored code that the reference passes over, which is exactly where compliance surprises tend to hide.</div>
-      </div>
       <div class="repro"><span class="k">repo</span> <span class="v">redis/redis @ 5b5c326</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">dev build (0.2.x)</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
     </section>
 
@@ -105,6 +85,8 @@ const jsonLd = {
         <a class="btn btn-ghost" href="/blog/the-provenant-story/">Read the story →</a>
       </div>
     </section>
+
+    <p class="legal">Provenant is an independent project, not affiliated with or endorsed by nexB Inc. or the AboutCode project. <span class="mono">ScanCode is a trademark of nexB Inc.</span> Comparative figures are drawn from reproducible scans on the commits noted above, for factual comparison.</p>
   </main>
 </BaseLayout>
 
@@ -113,12 +95,13 @@ const jsonLd = {
   .chero h1 { font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.05; margin: 0 0 1rem; font-weight: 660; }
   .chero .sub { font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--ink-soft); max-width: 42rem; margin: 0; text-wrap: pretty; }
 
-  .big-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1px; background: var(--border);
+  .big-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border);
     border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 2.2rem 0; }
   .big-metrics .m { background: var(--surface); padding: 1.3rem 1.4rem; }
   .big-metrics .n { font-family: var(--mono); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
   .big-metrics .n .u { color: var(--teal-ink); }
   .big-metrics .l { font-size: 0.82rem; color: var(--ink-faint); margin-top: 0.25rem; }
+  @media (max-width: 480px) { .big-metrics { grid-template-columns: 1fr; } }
 
   .chart { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 1rem; margin: 1.5rem 0; }
   .chart img { display: block; width: 100%; height: auto; }

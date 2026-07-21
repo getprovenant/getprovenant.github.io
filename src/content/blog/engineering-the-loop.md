@@ -64,6 +64,4 @@ Cheap iteration is what makes that possible: a suboptimal early decision is now 
 
 None of this made software free or instant. The effort didn't vanish — its _unit_ changed, from person-months to tokens plus iteration time. What we actually bought with that trade was a roughly one-to-two-orders-of-magnitude compression of both cost and calendar time. That's not the "AI writes your app" fantasy. It's something more useful, and more demanding: a new kind of engineering, where the thing you build best is the loop.
 
----
-
 <span class="foot-note">Provenant is open source under Apache-2.0. If you want to see what the loop produced: [github.com/getprovenant/provenant](https://github.com/getprovenant/provenant).</span>

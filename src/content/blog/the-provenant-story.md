@@ -49,6 +49,4 @@ brew install getprovenant/tap/provenant
 provenant scan . --license --package --copyright --json-pp -
 ```
 
----
-
-<span class="foot-note">Provenant is an independent project and is not affiliated with or endorsed by nexB Inc. or the AboutCode project. ScanCode is a trademark of nexB Inc.</span>
+<span class="foot-note">Provenant is open source under Apache-2.0. Try it: [github.com/getprovenant/provenant](https://github.com/getprovenant/provenant).</span>

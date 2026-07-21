@@ -67,7 +67,25 @@ const jsonLd = {
     </section>
 
     <section class="repo">
-      <p style="color:var(--ink-soft)">This is one worked example from a much larger benchmark set. The full timing table across 254 recorded runs — with every commit pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
+      <h2>Redis <span class="repo-mono">github.com/redis/redis</span></h2>
+      <p class="tagline">The two agree on Redis's licenses overall. Where they differ, it's Provenant reporting the license a file actually carries — and not the ones it doesn't.</p>
+      <div class="scorecard">
+        <div class="s"><div class="sv tabnums">1,801</div><div class="sl">files compared</div></div>
+        <div class="s"><div class="sv pv tabnums">0</div><div class="sl">real licenses Provenant fails to report (verified)</div></div>
+        <div class="s"><div class="sv tabnums">16</div><div class="sl">vendored BSD files ScanCode also tags AGPL/SSPL/…</div></div>
+        <div class="s"><div class="sv tabnums">26</div><div class="sl">files where PV drops an unresolved “unknown license”</div></div>
+      </div>
+      <div class="delta">
+        <div class="dh"><span class="pill pill-teal">Reports the actual license</span><h3>A BSD file, read as BSD</h3></div>
+        <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">bsd-new AND agpl-3.0 AND mongodb-sspl-1.0 AND rsalv2 AND gpl-1.0-plus AND (agpl-3.0-plus OR apache-2.0) AND other-copyleft … <em>(12 licenses)</em></span><span class="ct">×16 files</span></div>
+        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val"><span class="keep">bsd-new</span></span><span class="ct">×16 files</span></div>
+        <div class="why">The vendored <code>jemalloc</code> SFMT files are BSD-3-Clause (Mutsuo Saito &amp; Makoto Matsumoto, Hiroshima University). ScanCode's expression on these files also pulls in <b>AGPL, SSPL, RSALv2, Apache and GPL</b> — none of which apply — while Provenant reports the license the file actually carries. A separate 26 files show the same shape more mildly: ScanCode appends an unresolved <code>unknown-license-reference</code> to the real <code>BSD-3-Clause</code>; Provenant reports it clean.</div>
+      </div>
+      <div class="repro"><span class="k">repo</span> <span class="v">redis/redis @ 5b5c326</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">0.2.8</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+    </section>
+
+    <section class="repo">
+      <p style="color:var(--ink-soft)">These are two worked examples from a much larger benchmark set. The full timing table across 254 recorded runs — with every commit pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
       <div class="cta-row" style="margin-top:1.2rem">
         <a class="btn btn-primary" href="https://github.com/getprovenant/provenant#quick-start">Try Provenant</a>
         <a class="btn btn-ghost" href="/blog/the-provenant-story/">Read the story →</a>

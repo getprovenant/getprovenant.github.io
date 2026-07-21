@@ -1,0 +1,74 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "mergeConfidence:all-badges",
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "includePaths": [
+    "package.json",
+    "package-lock.json",
+    "renovate.json",
+    ".github/workflows/**"
+  ],
+  "addLabels": ["dependencies"],
+  "automergeType": "branch",
+  "platformAutomerge": true,
+  "gitIgnoredAuthors": ["github-actions[bot] <github-actions[bot]@users.noreply.github.com>"],
+  "prConcurrentLimit": 5,
+  "prCreation": "not-pending",
+  "rangeStrategy": "pin",
+  "minimumReleaseAge": "3 days",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"],
+    "automerge": false,
+    "minimumReleaseAge": null
+  },
+  "osvVulnerabilityAlerts": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"],
+    "automerge": true,
+    "automergeType": "branch",
+    "platformAutomerge": true
+  },
+  "packageRules": [
+    {
+      "description": "Group Astro and its integrations together",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["astro", "@astrojs/**"],
+      "groupName": "Astro"
+    },
+    {
+      "description": "Automerge non-major updates after release age",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "Security patches have priority and a shorter release age",
+      "matchDepTypes": ["dependencies"],
+      "matchCurrentVersion": "!/^0/",
+      "matchUpdateTypes": ["patch"],
+      "matchPackageNames": ["*"],
+      "minimumReleaseAge": "1 day",
+      "labels": ["dependencies", "security-patch"]
+    },
+    {
+      "description": "GitHub Actions updates enabled with caution",
+      "matchManagers": ["github-actions"],
+      "enabled": true,
+      "groupName": "GitHub Actions",
+      "automerge": false,
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "description": "Major updates require manual review",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["dependencies", "major-update"]
+    }
+  ]
+}

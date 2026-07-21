@@ -1,0 +1,101 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;              // e.g. "/", "/compare/"
+  ogType?: string;
+  ogImage?: string;          // absolute or site-relative
+  current?: 'why' | 'compare' | 'blog';
+}
+
+const {
+  title,
+  description,
+  path,
+  ogType = 'website',
+  ogImage = '/assets/provenant-demo.gif',
+  current,
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://getprovenant.github.io');
+const canonical = new URL(path, site).href;
+const ogImageAbs = new URL(ogImage, site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0c8f74" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1214" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Provenant" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <header class="site-head">
+      <div class="wrap-wide bar">
+        <a class="brand" href="/"><span class="seal">◆</span> prove<b>n</b>ant</a>
+        <nav class="nav">
+          <a class="hide-sm" href="/#why" aria-current={current === 'why' ? 'page' : undefined}>Why</a>
+          <a href="/compare/" aria-current={current === 'compare' ? 'page' : undefined}>Compare</a>
+          <a href="/#writing" aria-current={current === 'blog' ? 'page' : undefined}>Blog</a>
+          <a class="ghlink" href="https://github.com/getprovenant/provenant">GitHub ↗</a>
+        </nav>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer class="site-foot">
+      <div class="wrap-wide">
+        <div class="cols">
+          <div class="brandcol">
+            <a class="brand" href="/"><span class="seal">◆</span> prove<b>n</b>ant</a>
+            <p style="color:var(--ink-soft); font-size:0.92rem; margin:0.6rem 0 0;">
+              A fast, source-faithful license, copyright, package, and SBOM scanner. Open source under Apache-2.0.
+            </p>
+          </div>
+          <div>
+            <h4>Project</h4>
+            <ul>
+              <li><a href="https://github.com/getprovenant/provenant">GitHub</a></li>
+              <li><a href="https://crates.io/crates/provenant-cli">crates.io</a></li>
+              <li><a href="https://github.com/getprovenant/provenant/releases/latest">Releases</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Learn</h4>
+            <ul>
+              <li><a href="/compare/">Comparison</a></li>
+              <li><a href="/blog/the-provenant-story/">The Provenant Story</a></li>
+              <li><a href="/blog/engineering-the-loop/">Engineering the Loop</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="disclaimer">
+          Provenant is an independent project and is not affiliated with or endorsed by nexB Inc. or the AboutCode project.
+          <span class="mono">ScanCode is a trademark of nexB Inc.</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

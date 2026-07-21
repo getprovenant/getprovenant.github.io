@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'Provenant vs ScanCode — speed and output quality compared',
+  description:
+    'A reproducible, side-by-side comparison of Provenant and ScanCode on well-known repositories, covering both scan speed and the actual license and copyright findings that differ.',
+  about: 'Open-source license and copyright scanning',
+  url: 'https://getprovenant.github.io/compare/',
+  isPartOf: { '@type': 'WebSite', name: 'Provenant', url: 'https://getprovenant.github.io/' },
+};
+---
+
+<BaseLayout
+  title="Provenant vs ScanCode — speed & output quality compared"
+  description="A reproducible, side-by-side comparison of Provenant and ScanCode on well-known repositories: ~20× faster scans, plus an annotated look at the actual license and copyright findings that differ — and why."
+  path="/compare/"
+  ogType="article"
+  ogImage="/assets/scan-duration-vs-files.svg"
+  current="compare"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+
+  <main class="wrap">
+    <section class="chero">
+      <p class="eyebrow">Comparison · reproducible</p>
+      <h1>Speed is easy to show. We measured quality too.</h1>
+      <p class="sub">A faster scanner is only useful if it's still <em>right</em>. So we ran Provenant and ScanCode on the same well-known repositories, reduced both outputs to their actual findings, and compared them line by line — then annotated every difference that matters.</p>
+    </section>
+
+    <section>
+      <div class="big-metrics">
+        <div class="m"><div class="n tabnums">19.7<span class="u">×</span></div><div class="l">median speedup, 254 / 254 recorded runs</div></div>
+        <div class="m"><div class="n tabnums">19.7<span class="u">×</span></div><div class="l">geometric-mean speedup overall</div></div>
+        <div class="m"><div class="n tabnums">9→37<span class="u">×</span></div><div class="l">grows with size (sub-100 → 10k+ files)</div></div>
+        <div class="m"><div class="n tabnums">70.7<span class="u">×</span></div><div class="l">fastest measured (CPython)</div></div>
+      </div>
+
+      <figure class="chart">
+        <img src="/assets/scan-duration-vs-files.svg" alt="Log-log scatter of scan duration versus file count. Provenant's points sit consistently below ScanCode's across the full range, and the gap widens as file count grows." />
+        <figcaption>Scan duration vs. file count, log-log. Provenant (lower is faster) stays below the reference across the whole range, and the gap widens with size.</figcaption>
+      </figure>
+
+      <figure class="chart">
+        <img src="/assets/provenant-demo.gif" alt="Provenant and ScanCode scanning astral-sh/uv side by side; Provenant finishes many times sooner." />
+        <figcaption>Provenant (left) and ScanCode racing the same <code>astral-sh/uv</code> checkout — 28.8× faster on this run.</figcaption>
+      </figure>
+
+      <div class="method">
+        <b>How this was measured.</b> Both scanners run on identical checkouts at pinned commits, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below are from development-build comparison runs (commits noted per repo) and are refreshed on each stable release.
+      </div>
+    </section>
+
+    <section class="repo">
+      <h2>curl <span class="repo-mono">github.com/curl/curl</span></h2>
+      <p class="tagline">The reference and Provenant agree on nearly every license conclusion. Where they diverge on copyright, Provenant is the more faithful of the two.</p>
+      <div class="scorecard">
+        <div class="s"><div class="sv tabnums">4,266</div><div class="sl">files compared</div></div>
+        <div class="s"><div class="sv tabnums">~5</div><div class="sl">files whose license detection differs</div></div>
+        <div class="s"><div class="sv pv tabnums">2,005</div><div class="sl">signals favoring Provenant</div></div>
+        <div class="s"><div class="sv tabnums">1,766</div><div class="sl">signals favoring ScanCode</div></div>
+      </div>
+      <div class="delta">
+        <div class="dh"><span class="pill pill-teal">Copyright fidelity</span><h3>The same copyright — one scanner keeps all of it</h3></div>
+        <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;</span><span class="ct">×800 files</span></div>
+        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;<span class="keep">, et al.</span> <span class="keep">SPDX-License-Identifier: curl</span></span><span class="ct">×526 files</span></div>
+        <div class="why">curl's file headers read <code>Copyright (C) Daniel Stenberg, &lt;daniel@haxx.se&gt;, et al.</code> followed by <code>SPDX-License-Identifier: curl</code>. ScanCode drops the <b>"et al."</b> — which legally signals that <b>other copyright holders exist</b> — and the SPDX identifier. Provenant reports the statement as written. It's the <b>same copyright</b>, rendered faithfully instead of trimmed.</div>
+      </div>
+      <div class="delta">
+        <div class="dh"><span class="pill pill-teal">License clues</span><h3>More supporting evidence surfaced</h3></div>
+        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">surfaces <span class="keep">25</span> license clues ScanCode does not</span><span class="ct">+25 / −11</span></div>
+        <div class="why">License <em>clues</em> are secondary signals — references and identifiers that aren't a full detection but document where license evidence appears. Provenant records more of them here, net, giving reviewers a fuller trail.</div>
+      </div>
+      <div class="repro"><span class="k">repo</span> <span class="v">curl/curl @ 2bb5c9b</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">dev build (0.1.x)</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+    </section>
+
+    <section class="repo">
+      <h2>Redis <span class="repo-mono">github.com/redis/redis</span></h2>
+      <p class="tagline">Copyright findings are essentially even. On license evidence, Provenant is the more thorough of the two — especially inside vendored dependencies.</p>
+      <div class="scorecard">
+        <div class="s"><div class="sv tabnums">1,801</div><div class="sl">files compared</div></div>
+        <div class="s"><div class="sv pv tabnums">317</div><div class="sl">signals favoring Provenant</div></div>
+        <div class="s"><div class="sv tabnums">155</div><div class="sl">signals favoring ScanCode</div></div>
+        <div class="s"><div class="sv tabnums">33 / 33</div><div class="sl">copyright findings — even</div></div>
+      </div>
+      <div class="delta">
+        <div class="dh"><span class="pill pill-teal">Detection thoroughness</span><h3>License evidence inside vendored code</h3></div>
+        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">surfaces <span class="keep">32</span> license clues ScanCode does not</span><span class="ct">+32 / −3</span></div>
+        <ul class="filelist">
+          <li><span class="path">deps/jemalloc/build-aux/config.guess</span><span class="arrow">→</span><span class="lic">bsd-new</span></li>
+          <li><span class="path">deps/linenoise/linenoise.c</span><span class="arrow">→</span><span class="lic">bsd-new</span></li>
+          <li><span class="path">src/rand.c</span><span class="arrow">→</span><span class="lic">public-domain</span></li>
+        </ul>
+        <div class="why">The extra evidence clusters in <b>bundled third-party dependencies</b> — jemalloc, linenoise — and in individual source files. Provenant reads license clues inside vendored code that the reference passes over, which is exactly where compliance surprises tend to hide.</div>
+      </div>
+      <div class="repro"><span class="k">repo</span> <span class="v">redis/redis @ 5b5c326</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">dev build (0.2.x)</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+    </section>
+
+    <section class="repo">
+      <p style="color:var(--ink-soft)">These are two repositories from a much larger benchmark set. The full timing table across 254 recorded runs — with every commit pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
+      <div class="cta-row" style="margin-top:1.2rem">
+        <a class="btn btn-primary" href="https://github.com/getprovenant/provenant#quick-start">Try Provenant</a>
+        <a class="btn btn-ghost" href="/blog/the-provenant-story/">Read the story →</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .chero { padding: clamp(2.6rem, 6vw, 4.5rem) 0 1.5rem; }
+  .chero h1 { font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.05; margin: 0 0 1rem; font-weight: 660; }
+  .chero .sub { font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--ink-soft); max-width: 42rem; margin: 0; text-wrap: pretty; }
+
+  .big-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 2.2rem 0; }
+  .big-metrics .m { background: var(--surface); padding: 1.3rem 1.4rem; }
+  .big-metrics .n { font-family: var(--mono); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+  .big-metrics .n .u { color: var(--teal-ink); }
+  .big-metrics .l { font-size: 0.82rem; color: var(--ink-faint); margin-top: 0.25rem; }
+
+  .chart { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 1rem; margin: 1.5rem 0; }
+  .chart img { display: block; width: 100%; height: auto; }
+  .chart figcaption { font-size: 0.82rem; color: var(--ink-faint); font-family: var(--mono); margin-top: 0.6rem; }
+
+  .method { background: var(--brass-soft); border: 1px solid color-mix(in srgb, var(--brass) 30%, transparent);
+    border-radius: var(--radius); padding: 1.1rem 1.3rem; margin: 1.8rem 0; font-size: 0.93rem; color: var(--ink-soft); }
+  .method b { color: var(--brass-ink); }
+
+  .repo { padding: clamp(2.2rem, 5vw, 3.5rem) 0; border-top: 1px solid var(--border); }
+  .repo h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); margin: 0 0 0.3rem; font-weight: 640; }
+  .repo h2 .repo-mono { font-family: var(--mono); font-size: 0.7em; color: var(--ink-faint); font-weight: 500; }
+  .repo .tagline { color: var(--ink-soft); margin: 0 0 1.5rem; }
+
+  .scorecard { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.8rem; }
+  .scorecard .s { background: var(--surface); padding: 0.95rem 1.1rem; }
+  .scorecard .sv { font-family: var(--mono); font-size: 1.25rem; font-weight: 700; color: var(--ink); }
+  .scorecard .sv.pv { color: var(--teal-ink); }
+  .scorecard .sl { font-size: 0.76rem; color: var(--ink-faint); margin-top: 0.2rem; }
+
+  .delta { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.3rem; background: var(--surface); }
+  .delta .dh { padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+  .delta .dh h3 { font-size: 1.02rem; margin: 0; font-weight: 640; }
+  .delta .cmp { display: grid; grid-template-columns: 5.5rem 1fr auto; gap: 0.5rem 1rem; align-items: baseline; padding: 0.85rem 1.2rem; border-bottom: 1px solid var(--border); }
+  .delta .cmp .lbl { font-family: var(--mono); font-size: 0.78rem; padding-top: 0.15rem; }
+  .delta .cmp .lbl.sc { color: var(--ref); }
+  .delta .cmp .lbl.pv { color: var(--teal-ink); font-weight: 600; }
+  .delta .cmp .val { font-family: var(--mono); font-size: 0.86rem; line-height: 1.5; word-break: break-word; color: var(--ink); }
+  .delta .cmp .val .keep { color: var(--teal-ink); background: var(--teal-soft); border-radius: 3px; padding: 0 0.2em; }
+  .delta .cmp .ct { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint); white-space: nowrap; }
+  .delta .why { padding: 0.85rem 1.2rem; background: var(--surface-2); font-size: 0.9rem; color: var(--ink-soft); }
+  .delta .why b { color: var(--ink); }
+
+  .filelist { list-style: none; margin: 0; padding: 0.4rem 0; }
+  .filelist li { display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem; align-items: baseline; padding: 0.5rem 1.2rem; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 0.83rem; }
+  .filelist li:last-child { border-bottom: none; }
+  .filelist .path { color: var(--ink); }
+  .filelist .lic { color: var(--teal-ink); }
+  .filelist .arrow { color: var(--ink-faint); }
+
+  .repro { border: 1px dashed var(--border-strong); border-radius: var(--radius); padding: 1rem 1.2rem; margin-top: 1.4rem;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); line-height: 1.7; }
+  .repro .k { color: var(--ink-faint); }
+  .repro .v { color: var(--ink); }
+</style>

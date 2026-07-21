@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = await getCollection('blog');
+---
+
+<BaseLayout
+  title="Blog — Provenant"
+  description="Writing from the Provenant project: the origin story and how it was built."
+  path="/blog/"
+  current="blog"
+>
+  <main class="wrap">
+    <section class="bloglist">
+      <p class="eyebrow">Writing</p>
+      <h1>From the Provenant project</h1>
+      <div class="postlist">
+        {posts.map((p) => (
+          <a class="postcard" href={`/blog/${p.id}/`}>
+            <div class="k">{p.data.kicker}</div>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+            <div class="more">Read →</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .bloglist { padding: clamp(2.5rem, 6vw, 4rem) 0; }
+  .bloglist h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin: 0.4rem 0 2rem; }
+  .postlist { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.1rem; }
+  .postcard { display: block; text-decoration: none; color: inherit; background: var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; transition: border-color 0.15s ease, transform 0.15s ease; }
+  .postcard:hover { border-color: var(--teal); transform: translateY(-2px); }
+  .postcard .k { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brass-ink); }
+  .postcard h3 { font-size: 1.2rem; margin: 0.5rem 0; font-weight: 640; }
+  .postcard p { margin: 0; color: var(--ink-soft); font-size: 0.93rem; }
+  .postcard .more { margin-top: 0.9rem; font-family: var(--mono); font-size: 0.82rem; color: var(--teal-ink); }
+</style>

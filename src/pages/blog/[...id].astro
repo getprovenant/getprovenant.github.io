@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, kicker, standfirst } = post.data;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  url: `https://getprovenant.github.io/blog/${post.id}/`,
+  isPartOf: { '@type': 'WebSite', name: 'Provenant', url: 'https://getprovenant.github.io/' },
+};
+---
+
+<BaseLayout
+  title={`${title} — Provenant`}
+  description={description}
+  path={`/blog/${post.id}/`}
+  ogType="article"
+  current="blog"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <main class="wrap">
+    <article class="article">
+      <a class="backlink" href="/">← Provenant</a>
+      <p class="kicker" style="margin-top:1.2rem">{kicker}</p>
+      <h1>{title}</h1>
+      <p class="standfirst">{standfirst}</p>
+      <div class="prose"><Content /></div>
+    </article>
+  </main>
+</BaseLayout>

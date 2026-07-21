@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Provenant',
+  applicationCategory: 'DeveloperApplication',
+  applicationSubCategory: 'License and SBOM scanner',
+  operatingSystem: 'macOS, Linux, Windows',
+  description:
+    'A fast, source-faithful license, copyright, package, and SBOM scanner. A single Rust binary with no runtime, ScanCode-compatible output, and SLSA build-provenance on every release.',
+  url: 'https://getprovenant.github.io/',
+  downloadUrl: 'https://github.com/getprovenant/provenant/releases/latest',
+  license: 'https://www.apache.org/licenses/LICENSE-2.0',
+  programmingLanguage: 'Rust',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Provenant — fast Rust license, copyright & SBOM scanner"
+  description="Provenant is a fast, source-faithful license, copyright, package, and SBOM scanner: a single Rust binary with no runtime, an embedded license index, ScanCode-compatible output, and SLSA build-provenance on every release."
+  path="/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+
+  <main>
+    <section class="hero">
+      <div class="wrap-wide">
+        <p class="eyebrow">License · Copyright · Packages · SBOM</p>
+        <h1>Know what's <span class="accent">inside your code</span> — in seconds, not minutes.</h1>
+        <p class="sub">Provenant is a fast, source-faithful license and copyright scanner. One Rust binary, no runtime, an embedded license index, and output you can drop straight into an existing compliance pipeline.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/getprovenant/provenant#quick-start">Get started</a>
+          <a class="btn btn-ghost" href="/compare/">See how it compares →</a>
+        </div>
+        <div class="install"><span class="p">$ </span><span class="c">brew install getprovenant/tap/provenant</span><br /><span class="p">$ </span><span class="c">provenant scan . --license --package --copyright --json-pp -</span></div>
+
+        <div class="metrics">
+          <div class="metric"><div class="n tabnums">19.7<span class="u">×</span></div><div class="l">median speedup over the reference (254/254 runs)</div></div>
+          <div class="metric"><div class="n tabnums">37<span class="u">×</span></div><div class="l">on large 10k+-file repositories</div></div>
+          <div class="metric"><div class="n">0<span class="u"> deps</span></div><div class="l">static binary — no runtime to install</div></div>
+          <div class="metric"><div class="n">SLSA</div><div class="l">build-provenance on every release</div></div>
+        </div>
+      </div>
+
+      <div class="wrap-wide demo">
+        <figure>
+          <img src="/assets/provenant-demo.gif" width="1080" height="480" alt="Provenant and ScanCode scanning the astral-sh/uv repository side by side; Provenant finishes many times sooner." />
+          <figcaption><span class="pill pill-teal">live</span> Provenant (left) and the reference scanner racing the same <code>astral-sh/uv</code> repository.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band alt" id="why">
+      <div class="wrap-wide">
+        <p class="eyebrow">Why Provenant</p>
+        <h2>Built for scanning at scale, without cutting corners on correctness.</h2>
+        <p class="lead">Everything below is measured on documented, reproducible workloads — not adjectives.</p>
+        <div class="pillars">
+          <div class="pcard"><div class="h"><h3>Fast</h3><span class="tag">~20× median</span></div>
+            <p>Native Rust, no interpreter, no warm-up — <b>19.7×</b> faster on average across 254 recorded workloads, and it scales <em>up</em>: ~9× on small trees, <b>37×</b> on 10k+-file repos, over <b>70×</b> on the largest measured.</p></div>
+          <div class="pcard"><div class="h"><h3>Source-faithful</h3><span class="tag">verbatim</span></div>
+            <p>Copyright and license text is reported the way it actually appears — <code>©</code> stays <code>©</code>, statements aren't silently trimmed — so what you read is what's really in the file.</p></div>
+          <div class="pcard"><div class="h"><h3>Monorepo-aware</h3><span class="tag">ownership</span></div>
+            <p>Workspace, reactor, and multiproject layouts are understood as such: nested sources and shared lockfiles are attributed to the package that owns them.</p></div>
+          <div class="pcard"><div class="h"><h3>Low-noise</h3><span class="tag">precision</span></div>
+            <p>Suppresses the false-positive classes that make review tedious — code and prose bleed — and treats bare-word license mentions as clues, not conclusions.</p></div>
+          <div class="pcard"><div class="h"><h3>Compatible</h3><span class="tag">drop-in</span></div>
+            <p>Emits ScanCode-compatible JSON so it fits existing workflows, while its own goal is simply the best practical scan result — plus SPDX and CycloneDX SBOMs.</p></div>
+          <div class="pcard"><div class="h"><h3>Trustworthy to ship</h3><span class="tag">attested</span></div>
+            <p>Every release binary and container image carries SLSA build-provenance attestation, so you can cryptographically verify what you run.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="compare">
+      <div class="wrap-wide feature-split">
+        <div>
+          <p class="eyebrow">Speed <em>and</em> quality</p>
+          <h2>Same repositories. Faster — and more faithful.</h2>
+          <p class="lead">Speed is the easy part to show. The harder question is whether a faster scanner is still <em>right</em>. We put Provenant and the reference scanner on the same well-known repositories and compared the actual findings, line by line — then annotated every difference that matters.</p>
+          <div class="cta-row"><a class="btn btn-primary" href="/compare/">Read the comparison →</a></div>
+        </div>
+        <div class="compare-card" aria-hidden="true">
+          <div class="top">astral-sh/uv — scan wall-clock</div>
+          <div class="row"><span class="who pv">provenant</span><span class="track"><span class="fill pv"></span></span><span class="t tabnums">1×</span></div>
+          <div class="row"><span class="who sc">reference</span><span class="track"><span class="fill sc"></span></span><span class="t tabnums">28.8×</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band alt" id="writing">
+      <div class="wrap-wide">
+        <p class="eyebrow">Writing</p>
+        <h2>How Provenant came to be.</h2>
+        <div class="cardgrid">
+          <a class="postcard" href="/blog/the-provenant-story/">
+            <div class="k">The story</div>
+            <h3>The Provenant Story</h3>
+            <p>Why a fast, source-faithful license scanner exists — and why it's built openly on the tool that came before it.</p>
+            <div class="more">Read →</div>
+          </a>
+          <a class="postcard" href="/blog/engineering-the-loop/">
+            <div class="k">Engineering</div>
+            <h3>Engineering the Loop</h3>
+            <p>How we built ~260,000 lines of Rust mostly with AI agents — and what that actually takes.</p>
+            <div class="more">Read →</div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 5vw, 3.5rem); }
+  .hero h1 { font-size: clamp(2.4rem, 6.5vw, 4rem); line-height: 1.02; font-weight: 680; margin: 0 0 1.1rem; }
+  .hero h1 .accent { color: var(--teal-ink); }
+  .hero .sub { font-size: clamp(1.1rem, 2.4vw, 1.32rem); color: var(--ink-soft); max-width: 40rem; margin: 0 0 1.9rem; text-wrap: pretty; }
+  .hero .install { margin: 1.4rem 0 0; max-width: 40rem; }
+  .metrics { display: flex; flex-wrap: wrap; gap: 1.6rem 2.6rem; margin: 2rem 0 0; padding-top: 1.6rem; border-top: 1px solid var(--border); }
+  .metric .n { font-family: var(--mono); font-size: 1.7rem; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
+  .metric .n .u { color: var(--teal-ink); }
+  .metric .l { font-size: 0.82rem; color: var(--ink-faint); margin-top: 0.15rem; max-width: 12rem; }
+
+  .demo { margin: clamp(2rem, 5vw, 3.5rem) 0 0; }
+  .demo figure { margin: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+  .demo img { display: block; width: 100%; height: auto; }
+  .demo figcaption { font-size: 0.82rem; color: var(--ink-faint); padding: 0.7rem 1rem; border-top: 1px solid var(--border);
+    font-family: var(--mono); display: flex; gap: 0.6rem; align-items: center; }
+
+  .band { padding: clamp(2.6rem, 6vw, 4.5rem) 0; }
+  .band.alt { background: var(--surface); border-block: 1px solid var(--border); }
+  .band h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); margin: 0 0 0.6rem; font-weight: 640; }
+  .band .lead { color: var(--ink-soft); max-width: 42rem; margin: 0 0 2.2rem; }
+
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+  .pcard { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem 1.35rem; }
+  .pcard .h { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.5rem; }
+  .pcard h3 { font-size: 1.1rem; margin: 0; font-weight: 640; }
+  .pcard .tag { font-family: var(--mono); font-size: 0.68rem; color: var(--teal-ink); letter-spacing: 0.06em; }
+  .pcard p { margin: 0; font-size: 0.94rem; color: var(--ink-soft); line-height: 1.55; }
+  .pcard p b { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  .feature-split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+  @media (max-width: 780px) { .feature-split { grid-template-columns: 1fr; } }
+  .compare-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .compare-card .top { padding: 1.1rem 1.3rem; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); }
+  .compare-card .row { display: flex; align-items: center; gap: 0.9rem; padding: 0.95rem 1.3rem; border-bottom: 1px solid var(--border); }
+  .compare-card .row:last-child { border-bottom: none; }
+  .compare-card .who { width: 6.5rem; font-family: var(--mono); font-size: 0.82rem; }
+  .compare-card .who.pv { color: var(--teal-ink); font-weight: 600; }
+  .compare-card .who.sc { color: var(--ref); }
+  .compare-card .track { flex: 1; height: 0.7rem; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+  .compare-card .fill { height: 100%; border-radius: 999px; }
+  .compare-card .fill.pv { width: 100%; background: var(--teal); }
+  .compare-card .fill.sc { width: 5%; background: var(--ref); }
+  .compare-card .t { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); width: 4.5rem; text-align: right; }
+
+  .cardgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.1rem; margin-top: 1.8rem; }
+  .postcard { display: block; text-decoration: none; color: inherit; background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.4rem; transition: border-color 0.15s ease, transform 0.15s ease; }
+  .postcard:hover { border-color: var(--teal); transform: translateY(-2px); }
+  .postcard .k { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brass-ink); }
+  .postcard h3 { font-size: 1.2rem; margin: 0.5rem 0 0.5rem; font-weight: 640; }
+  .postcard p { margin: 0; color: var(--ink-soft); font-size: 0.93rem; }
+  .postcard .more { margin-top: 0.9rem; font-family: var(--mono); font-size: 0.82rem; color: var(--teal-ink); }
+</style>

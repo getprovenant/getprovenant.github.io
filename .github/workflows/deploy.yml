@@ -1,9 +1,9 @@
 name: Deploy to GitHub Pages
 
-# Draft: manual-only for now so the private repo doesn't attempt to publish.
-# At launch, add `push: { branches: [main] }` here and enable Pages
-# (Settings -> Pages -> Source: GitHub Actions) on the public repo.
+# Deploys the built Astro site to GitHub Pages on every push to main.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

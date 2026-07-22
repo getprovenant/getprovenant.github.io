@@ -130,7 +130,9 @@ const jsonLd = {
   .demo figure { margin: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
   .demo img { display: block; width: 100%; height: auto; }
   .demo figcaption { font-size: 0.82rem; color: var(--ink-faint); padding: 0.7rem 1rem; border-top: 1px solid var(--border);
-    font-family: var(--mono); display: flex; gap: 0.6rem; align-items: center; }
+    font-family: var(--mono); line-height: 1.6; text-wrap: pretty; }
+  .demo figcaption .pill { margin-right: 0.5rem; vertical-align: middle; }
+  .demo figcaption code { white-space: nowrap; }
 
   .band { padding: clamp(2.6rem, 6vw, 4.5rem) 0; }
   .band.alt { background: var(--surface); border-block: 1px solid var(--border); }

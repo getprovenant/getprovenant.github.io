@@ -3,6 +3,7 @@ title: Engineering the Loop
 description: How we built Provenant — 300,000+ lines of Rust — mostly with AI agents, and what that actually takes.
 kicker: Engineering
 standfirst: How we built Provenant — 300,000+ lines of Rust — mostly with AI agents, and what that actually takes.
+date: 2026-05-22
 ---
 
 Provenant is a license, copyright, and SBOM scanner — today more than 300,000 lines of Rust — reimplementing the detection behavior of a mature Python tool (ScanCode) that took a decade to build. A small human team built the bulk of it in about four months, mostly by directing AI agents, for around $20,000 in tokens.

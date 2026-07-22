@@ -2,7 +2,10 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const posts = await getCollection('blog');
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
 
 <BaseLayout
@@ -18,7 +21,7 @@ const posts = await getCollection('blog');
       <div class="postlist">
         {posts.map((p) => (
           <a class="postcard" href={`/blog/${p.id}/`}>
-            <div class="k">{p.data.kicker}</div>
+            <div class="k">{p.data.kicker} · {fmt(p.data.date)}</div>
             <h3>{p.data.title}</h3>
             <p>{p.data.description}</p>
             <div class="more">Read →</div>

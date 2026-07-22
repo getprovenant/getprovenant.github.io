@@ -3,6 +3,7 @@ title: The Provenant Story
 description: Building a license and copyright scanner fast enough to run everywhere.
 kicker: The story
 standfirst: Building a license and copyright scanner fast enough to run everywhere.
+date: 2026-07-22
 ---
 
 Every organization that ships software has to answer the same question, sooner or later: _what's actually inside this, and what are we allowed to do with it?_ Licenses, copyrights, dependencies, the whole provenance of the code you're about to ship. It's unglamorous work, and it's load-bearing — get it wrong and you find out at the worst possible time.

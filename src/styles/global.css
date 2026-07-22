@@ -110,7 +110,9 @@ code, kbd { font-family: var(--mono); }
 
 /* ---- Pills ---- */
 .pill { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase;
-  padding: 0.22em 0.55em; border-radius: 999px; font-weight: 600; }
+  display: inline-flex; align-items: center; line-height: 1;
+  /* All-caps has no descenders, so it sits high in the line box; bias top padding to optically center. */
+  padding: 0.42em 0.55em 0.3em; border-radius: 999px; font-weight: 600; }
 .pill-teal { background: var(--teal-soft); color: var(--teal-ink); }
 .pill-brass { background: var(--brass-soft); color: var(--brass-ink); }
 .pill-ref { background: var(--ref-soft); color: var(--ref); }

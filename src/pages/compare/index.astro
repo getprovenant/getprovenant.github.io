@@ -7,7 +7,7 @@ const jsonLd = {
   '@type': 'TechArticle',
   headline: 'Provenant vs ScanCode — speed and output quality compared',
   description:
-    'A reproducible, side-by-side comparison of Provenant and ScanCode on well-known repositories, covering both scan speed and the actual license and copyright findings that differ.',
+    'A reproducible, side-by-side comparison of Provenant and ScanCode on well-known repositories and build artifacts, covering both scan speed and the actual license, copyright, and package findings that differ.',
   about: 'Open-source license and copyright scanning',
   url: 'https://getprovenant.github.io/compare/',
   isPartOf: { '@type': 'WebSite', name: 'Provenant', url: 'https://getprovenant.github.io/' },
@@ -16,7 +16,7 @@ const jsonLd = {
 
 <BaseLayout
   title="Provenant vs ScanCode — speed & output quality compared"
-  description="A reproducible, side-by-side comparison of Provenant and ScanCode on well-known repositories: ~20× faster scans, plus an annotated look at the actual license and copyright findings that differ — and why."
+  description="A reproducible, side-by-side comparison of Provenant and ScanCode on well-known repositories and build artifacts: ~20× faster scans, plus an annotated look at the actual license, copyright, and package findings that differ — and why."
   path="/compare/"
   ogType="article"
   ogImage="/assets/scan-duration-vs-files.svg"
@@ -28,7 +28,7 @@ const jsonLd = {
     <section class="chero">
       <p class="eyebrow">Comparison · reproducible</p>
       <h1>Speed is easy to show. We measured quality too.</h1>
-      <p class="sub">A faster scanner is only useful if it's still <em>right</em>. So we ran Provenant and ScanCode on the same well-known repositories, reduced both outputs to their actual findings, and compared them line by line — then annotated every difference that matters.</p>
+      <p class="sub">A faster scanner is only useful if it's still <em>right</em>. So we ran Provenant and ScanCode on the same well-known repositories and build artifacts, reduced both outputs to their actual findings, and compared them line by line — then annotated every difference that matters.</p>
     </section>
 
     <section>
@@ -44,7 +44,7 @@ const jsonLd = {
       </figure>
 
       <div class="method">
-        <b>How this was measured.</b> Both scanners run on identical checkouts at pinned commits, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below come from a run on the current stable build at the commit noted, refreshed on each stable release.
+        <b>How this was measured.</b> Both scanners run on identical checkouts and artifact snapshots at pinned commits and image digests, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below come from a run on the current stable build at the commit noted, refreshed on each stable release.
       </div>
     </section>
 
@@ -133,14 +133,35 @@ members = ["tokio", "tokio-util", "tokio-stream", "tokio-macros",
     </section>
 
     <section class="repo">
-      <p style="color:var(--ink-soft)">These are three worked examples from a much larger benchmark set. The full timing table across {bench.runs} recorded runs — with every commit pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
+      <h2>Amazon Linux 2 container <span class="repo-mono">lambci/lambda:provided.al2</span></h2>
+      <p class="tagline">Not just source trees — point Provenant at a built container image and it inventories every installed OS package. ScanCode can't open the package database at all.</p>
+      <div class="scorecard">
+        <div class="s"><div class="sv tabnums">4,085</div><div class="sl">files in the image rootfs</div></div>
+        <div class="s"><div class="sv pv tabnums">45</div><div class="sl">OS packages inventoried (ScanCode: 0)</div></div>
+        <div class="s"><div class="sv pv tabnums">590</div><div class="sl">dependencies recovered (ScanCode: 0)</div></div>
+        <div class="s"><div class="sv pv">pkg:rpm/amzn</div><div class="sl">PURL-correct identities with YumDB provenance</div></div>
+      </div>
+      <div class="delta">
+        <div class="dh"><span class="pill pill-teal">Reads the installed-package database</span><h3>A full OS inventory where ScanCode sees nothing</h3></div>
+        <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">rpmdb assembly error → <em>0 packages, 0 dependencies</em></span><span class="ct">no inventory</span></div>
+        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val"><span class="keep">45 packages</span>, <span class="keep">590 dependencies</span> from the Berkeley rpmdb</span><span class="ct">full inventory</span></div>
+        <div class="snippet"><span class="path">var/lib/rpm/Packages (binary Berkeley rpmdb)</span>pkg:rpm/amzn/bash@4.2.46-34.amzn2?arch=x86_64
+pkg:rpm/amzn/coreutils@8.22-24.amzn2?arch=x86_64
+pkg:rpm/amzn/glibc@2.26-39.amzn2?arch=x86_64</div>
+        <div class="why">The Amazon Linux 2 image records its installed packages in a binary Berkeley <code>rpmdb</code>. ScanCode has no reader for it, reports an assembly error, and leaves the package and dependency inventory empty. Provenant parses the rpmdb into a complete <code>pkg:rpm/amzn/*</code> inventory and merges the YumDB sidecar (repository, checksum, origin, install reason) — the difference between a scannable container and a blind spot.</div>
+      </div>
+      <div class="repro"><span class="k">image</span> <span class="v">lambci/lambda:provided.al2 @ sha256:7765ec11</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+    </section>
+
+    <section class="repo">
+      <p style="color:var(--ink-soft)">These are four worked examples from a much larger benchmark set spanning source repositories and build artifacts. The full timing table across {bench.runs} recorded runs — with every commit and image digest pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
       <div class="cta-row" style="margin-top:1.2rem">
         <a class="btn btn-primary" href="https://github.com/getprovenant/provenant#quick-start">Try Provenant</a>
         <a class="btn btn-ghost" href="/blog/the-provenant-story/">Read the story →</a>
       </div>
     </section>
 
-    <p class="legal">Provenant is an independent project, not affiliated with or endorsed by nexB Inc. or the AboutCode project. <span class="mono">ScanCode is a trademark of nexB Inc.</span> Comparative figures are drawn from reproducible scans on the commits noted above, for factual comparison.</p>
+    <p class="legal">Provenant is an independent project, not affiliated with or endorsed by nexB Inc. or the AboutCode project. <span class="mono">ScanCode is a trademark of nexB Inc.</span> Comparative figures are drawn from reproducible scans on the commits and image digests noted above, for factual comparison.</p>
   </main>
 </BaseLayout>
 

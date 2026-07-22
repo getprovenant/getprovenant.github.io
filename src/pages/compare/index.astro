@@ -33,7 +33,7 @@ const jsonLd = {
 
     <section>
       <div class="big-metrics">
-        <div class="m"><div class="n tabnums">{bench.medianSpeedup}<span class="u">×</span></div><div class="l">median &amp; geometric-mean speedup ({bench.runs} / {bench.runs} runs)</div></div>
+        <div class="m"><div class="n tabnums">{bench.geomeanSpeedup}<span class="u">×</span></div><div class="l">geometric-mean speedup ({bench.runs} of {bench.runs} runs)</div></div>
         <div class="m"><div class="n tabnums">{bench.sizeRangeLow}→{bench.sizeRangeHigh}<span class="u">×</span></div><div class="l">grows with size (sub-100 → 10k+ files)</div></div>
         <div class="m"><div class="n tabnums">{bench.fastest}<span class="u">×</span></div><div class="l">fastest measured (CPython)</div></div>
       </div>

@@ -39,7 +39,7 @@ const jsonLd = {
         <div class="install"><span class="p">$ </span><span class="c">brew install getprovenant/tap/provenant</span><br /><span class="p">$ </span><span class="c">provenant scan . --license --package --copyright --json-pp -</span></div>
 
         <div class="metrics">
-          <div class="metric"><div class="n tabnums">{bench.medianSpeedup}<span class="u">×</span></div><div class="l">median speedup over the reference ({bench.runs}/{bench.runs} runs)</div></div>
+          <div class="metric"><div class="n tabnums">{bench.geomeanSpeedup}<span class="u">×</span></div><div class="l">geometric-mean speedup over the reference ({bench.runs}/{bench.runs} runs)</div></div>
           <div class="metric"><div class="n tabnums">{bench.sizeRangeHigh}<span class="u">×</span></div><div class="l">on large 10k+-file repositories</div></div>
           <div class="metric"><div class="n">0<span class="u"> deps</span></div><div class="l">static binary — no runtime to install</div></div>
           <div class="metric"><div class="n">SLSA</div><div class="l">Supply-chain Levels for Software Artifacts — build provenance attested on every release</div></div>

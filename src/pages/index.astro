@@ -61,7 +61,7 @@ const jsonLd = {
         <p class="lead">Everything below is measured on documented, reproducible workloads — not adjectives.</p>
         <div class="pillars">
           <div class="pcard"><div class="h"><h3>Fast</h3><span class="tag">~20× median</span></div>
-            <p>Native Rust, no interpreter, no warm-up — <b>19.7×</b> faster on average across 254 recorded workloads, and it scales <em>up</em>: ~9× on small trees, <b>37×</b> on 10k+-file repos, over <b>70×</b> on the largest measured.</p></div>
+            <p>Native Rust, no interpreter, no warm-up — <b>{bench.geomeanSpeedup}×</b> faster on average across {bench.runs} recorded workloads, and it scales <em>up</em>: ~{bench.sizeRangeLow}× on small trees, <b>{bench.sizeRangeHigh}×</b> on 10k+-file repos, up to <b>{bench.fastest}×</b> on the largest measured.</p></div>
           <div class="pcard"><div class="h"><h3>Source-faithful</h3><span class="tag">verbatim</span></div>
             <p>Copyright and license text is reported the way it actually appears — accented names stay intact (<code>Björn</code>, not <code>Bjorn</code>) and statements aren't silently trimmed — so what you read is what's really in the file.</p></div>
           <div class="pcard"><div class="h"><h3>Monorepo-aware</h3><span class="tag">ownership</span></div>
@@ -87,7 +87,7 @@ const jsonLd = {
         <div class="compare-card" aria-hidden="true">
           <div class="top">astral-sh/uv — scan wall-clock</div>
           <div class="row"><span class="who pv">provenant</span><span class="track"><span class="fill pv"></span></span><span class="t tabnums">1×</span></div>
-          <div class="row"><span class="who sc">reference</span><span class="track"><span class="fill sc"></span></span><span class="t tabnums">28.8×</span></div>
+          <div class="row"><span class="who sc">reference</span><span class="track"><span class="fill sc"></span></span><span class="t tabnums">{bench.demoSpeedup}×</span></div>
         </div>
       </div>
     </section>

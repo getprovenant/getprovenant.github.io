@@ -12,7 +12,7 @@ Every organization that ships software has to answer the same question, sooner o
 
 ## What makes it different
 
-- **Fast.** Native Rust, no interpreter, no warm-up — roughly **20× faster on average** across 254 recorded workloads (19.7× median _and_ geometric mean), scaling _up_ with size: about 9× on small trees, 37× on large 10k+-file repositories, over 70× on the largest we've measured.
+- **Fast.** Native Rust, no interpreter, no warm-up — roughly **20× faster on average** across our recorded benchmark workloads, and it scales _up_ with repository size: from single digits on small trees to tens of times faster on large 10k+-file repositories. (The current, reproducible figures live on the [comparison page](/compare/) and in the repo's benchmark table.)
 - **Source-faithful.** Copyright and license text is reported the way it actually appears in your files — accented names are kept as written (`Björn`, not ASCII-folded to `Bjorn`), and statements aren't silently trimmed — so what Provenant reports is what's really there.
 - **Monorepo-aware.** Workspace, reactor, and multiproject layouts are understood as such: nested sources and shared lockfiles are attributed to the package that actually owns them.
 - **Low-noise.** It suppresses the false-positive classes that make scan output tedious to review — code and prose bleed — and treats bare-word license mentions as clues, not conclusions.

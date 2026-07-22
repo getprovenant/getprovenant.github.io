@@ -44,7 +44,7 @@ const jsonLd = {
       </figure>
 
       <div class="method">
-        <b>How this was measured.</b> Both scanners run on identical checkouts at pinned commits, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below come from a run on the current build (Provenant 0.2.8) at the commit noted, refreshed on each stable release.
+        <b>How this was measured.</b> Both scanners run on identical checkouts at pinned commits, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below come from a run on the current build (Provenant {bench.version}) at the commit noted, refreshed on each stable release.
       </div>
     </section>
 
@@ -54,13 +54,13 @@ const jsonLd = {
       <div class="scorecard">
         <div class="s"><div class="sv tabnums">4,266</div><div class="sl">files compared</div></div>
         <div class="s"><div class="sv pv tabnums">99.9%</div><div class="sl">identical license detection (trust baseline)</div></div>
-        <div class="s"><div class="sv pv tabnums">526</div><div class="sl">files where PV keeps the full copyright line</div></div>
+        <div class="s"><div class="sv pv tabnums">800</div><div class="sl">files where PV keeps the full copyright line</div></div>
         <div class="s"><div class="sv pv">verbatim</div><div class="sl">non-ASCII names &amp; punctuation preserved</div></div>
       </div>
       <div class="delta">
         <div class="dh"><span class="pill pill-teal">Copyright fidelity</span><h3>Keeps the whole copyright line</h3></div>
         <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;</span><span class="ct">×800 files</span></div>
-        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;<span class="keep">, et al.</span> <span class="keep">SPDX-License-Identifier: curl</span></span><span class="ct">×526 files</span></div>
+        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;<span class="keep">, et al.</span> <span class="keep">SPDX-License-Identifier: curl</span></span><span class="ct">×800 files</span></div>
         <div class="snippet"><span class="path">lib/url.c</span> * Copyright (C) Daniel Stenberg, &lt;daniel@haxx.se&gt;, et al.
  *
  * SPDX-License-Identifier: curl</div>
@@ -73,7 +73,7 @@ const jsonLd = {
         <div class="snippet"><span class="path">lib/mqtt.c:9</span> * Copyright (C) Björn Stenberg, &lt;bjorn@haxx.se&gt;</div>
         <div class="why">The source spells the author <b>Björn</b>. ScanCode ASCII-folds it to <b>Bjorn</b>; Provenant keeps the name exactly as written — the difference between attributing a person correctly or not.</div>
       </div>
-      <div class="repro"><span class="k">repo</span> <span class="v">curl/curl @ 2bb5c9b</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">0.2.8</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+      <div class="repro"><span class="k">repo</span> <span class="v">curl/curl @ 2bb5c9b</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">{bench.version}</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
     </section>
 
     <section class="repo">
@@ -82,13 +82,13 @@ const jsonLd = {
       <div class="scorecard">
         <div class="s"><div class="sv tabnums">1,801</div><div class="sl">files compared</div></div>
         <div class="s"><div class="sv pv tabnums">0</div><div class="sl">real licenses Provenant fails to report (verified)</div></div>
-        <div class="s"><div class="sv tabnums">16</div><div class="sl">BSD files ScanCode also tags AGPL/SSPL/…</div></div>
-        <div class="s"><div class="sv tabnums">26</div><div class="sl">files where PV drops an unresolved “unknown license”</div></div>
+        <div class="s"><div class="sv pv">bsd-new</div><div class="sl">vendored jemalloc SFMT sources ScanCode over-tags with AGPL/SSPL</div></div>
+        <div class="s"><div class="sv tabnums">30</div><div class="sl">files where PV drops an unresolved “unknown license”</div></div>
       </div>
       <div class="delta">
         <div class="dh"><span class="pill pill-teal">Reports the actual license</span><h3>A BSD file, read as BSD</h3></div>
-        <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">bsd-new AND agpl-3.0 AND mongodb-sspl-1.0 AND rsalv2 AND gpl-1.0-plus AND (agpl-3.0-plus OR apache-2.0) … <em>(12 licenses)</em></span><span class="ct">×16 files</span></div>
-        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val"><span class="keep">bsd-new</span></span><span class="ct">×16 files</span></div>
+        <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">bsd-new AND agpl-3.0 AND mongodb-sspl-1.0 AND rsalv2 AND gpl-1.0-plus AND (agpl-3.0-plus OR apache-2.0) … <em>(12 licenses)</em></span><span class="ct">SFMT sources</span></div>
+        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val"><span class="keep">bsd-new</span></span><span class="ct">SFMT sources</span></div>
         <div class="snippet"><span class="path">deps/jemalloc/test/include/test/SFMT.h</span> * Copyright (c) 2006,2007 Mutsuo Saito, Makoto Matsumoto and Hiroshima University.
  * Redistribution and use in source and binary forms … are permitted provided that
  * the following conditions are met … [standard 3-clause BSD]</div>
@@ -96,8 +96,8 @@ const jsonLd = {
       </div>
       <div class="delta">
         <div class="dh"><span class="pill pill-teal">Drops unresolved noise</span><h3>No “unknown license reference” cruft</h3></div>
-        <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">BSD-3-Clause AND <em>LicenseRef-scancode-unknown-license-reference</em></span><span class="ct">×26 files</span></div>
-        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val"><span class="keep">BSD-3-Clause</span></span><span class="ct">×26 files</span></div>
+        <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">BSD-3-Clause AND <em>LicenseRef-scancode-unknown-license-reference</em></span><span class="ct">×30 files</span></div>
+        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val"><span class="keep">BSD-3-Clause</span></span><span class="ct">×30 files</span></div>
         <div class="snippet"><span class="path">deps/tre/lib/regcomp.c</span>  This software is released under a BSD-style license.
   See the file LICENSE for details and copyright.</div>
         <div class="why">The TRE regex files point to a sibling <code>LICENSE</code> file. ScanCode records that pointer as an unresolved <code>unknown-license-reference</code> and ANDs it onto the real license; Provenant resolves the file to <code>BSD-3-Clause</code> and leaves it clean.</div>
@@ -110,7 +110,7 @@ const jsonLd = {
  RSALv2/SSPLv1/AGPLv3 at your option as referenced in the LICENSE.txt file.</div>
         <div class="why">Redis's docs name the “RSALv2/SSPLv1/AGPLv3” tri-license as prose several times. ScanCode emits a detection for each mention; Provenant reports AGPL once — the file's license conclusion is identical, with less repetition to review.</div>
       </div>
-      <div class="repro"><span class="k">repo</span> <span class="v">redis/redis @ 5b5c326</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">0.2.8</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+      <div class="repro"><span class="k">repo</span> <span class="v">redis/redis @ 5b5c326</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">{bench.version}</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
     </section>
 
     <section class="repo">
@@ -118,8 +118,8 @@ const jsonLd = {
       <p class="tagline">Both scanners find the same packages. Only Provenant knows which of the workspace's crates <em>owns</em> each file.</p>
       <div class="scorecard">
         <div class="s"><div class="sv tabnums">862</div><div class="sl">files compared</div></div>
-        <div class="s"><div class="sv tabnums">10</div><div class="sl">workspace crates resolved (identical both sides)</div></div>
-        <div class="s"><div class="sv pv tabnums">50</div><div class="sl">files PV attributes to an owning crate; ScanCode leaves unowned</div></div>
+        <div class="s"><div class="sv tabnums">12</div><div class="sl">workspace crates resolved (identical both sides)</div></div>
+        <div class="s"><div class="sv pv tabnums">850</div><div class="sl">files PV attributes to an owning crate; ScanCode leaves unowned</div></div>
         <div class="s"><div class="sv pv tabnums">0</div><div class="sl">package or dependency identities missed</div></div>
       </div>
       <div class="delta">
@@ -129,13 +129,13 @@ const jsonLd = {
         <div class="snippet"><span class="path">Cargo.toml (workspace root)</span>[workspace]
 members = ["tokio", "tokio-util", "tokio-stream", "tokio-macros",
            "tokio-test", "benches", "examples", "stress-test", …]</div>
-        <div class="why">tokio is a Cargo workspace of 10 crates sharing one lockfile. Provenant resolves the workspace and attributes each nested source to the crate that owns it (here <code>benches/</code> → the <code>benches</code> member); across the workspace it links <b>50</b> files ScanCode leaves with no package owner. That file→package graph is what turns a flat list of detections into a per-component inventory — which package each finding actually belongs to.</div>
+        <div class="why">tokio is a Cargo workspace of 12 crates sharing one lockfile. Provenant resolves the workspace and attributes each nested source to the crate that owns it (here <code>benches/</code> → the <code>benches</code> member); across the workspace it attributes <b>850</b> files that ScanCode leaves with no package owner — ScanCode links only the 12 manifest files themselves. That file→package graph is what turns a flat list of detections into a per-component inventory — which package each finding actually belongs to.</div>
       </div>
-      <div class="repro"><span class="k">repo</span> <span class="v">tokio-rs/tokio @ f2189d3</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">0.2.8</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+      <div class="repro"><span class="k">repo</span> <span class="v">tokio-rs/tokio @ f2189d3</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">{bench.version}</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
     </section>
 
     <section class="repo">
-      <p style="color:var(--ink-soft)">These are three worked examples from a much larger benchmark set. The full timing table across 254 recorded runs — with every commit pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
+      <p style="color:var(--ink-soft)">These are three worked examples from a much larger benchmark set. The full timing table across {bench.runs} recorded runs — with every commit pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
       <div class="cta-row" style="margin-top:1.2rem">
         <a class="btn btn-primary" href="https://github.com/getprovenant/provenant#quick-start">Try Provenant</a>
         <a class="btn btn-ghost" href="/blog/the-provenant-story/">Read the story →</a>

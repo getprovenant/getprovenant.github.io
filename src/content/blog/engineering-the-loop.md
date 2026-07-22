@@ -32,6 +32,8 @@ We started with an implementation that didn't pass. Then we introduced a golden-
 
 What came out was almost a textbook convergence curve — roughly exponential, with a half-life of about four and a half days. The **first ~20% of commits fixed ~80% of the failing tests**; the long tail was the expensive part. When progress stalled, the highest-leverage move wasn't a cleverer prompt — it was swapping in a stronger model and letting the same loop keep running.
 
+And convergence has a price you can read straight off the token bill. Reaching a passing state cost **tens of thousands of tokens for every line that ended up in the tree** — because the loop gets there by generating candidates and letting the tests throw most of them away. That ratio isn't waste; it _is_ the mechanism. You don't reason your way to a fixed point, you iterate to it, and the iteration is what you pay for.
+
 ## Why a loop beats a conversation, at scale
 
 Two things surprised us.

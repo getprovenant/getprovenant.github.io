@@ -1,11 +1,11 @@
 ---
 title: Engineering the Loop
-description: How we built Provenant — ~260,000 lines of Rust — mostly with AI agents, and what that actually takes.
+description: How we built Provenant — 300,000+ lines of Rust — mostly with AI agents, and what that actually takes.
 kicker: Engineering
-standfirst: How we built Provenant — ~260,000 lines of Rust — mostly with AI agents, and what that actually takes.
+standfirst: How we built Provenant — 300,000+ lines of Rust — mostly with AI agents, and what that actually takes.
 ---
 
-Provenant is a license, copyright, and SBOM scanner: roughly 260,000 lines of Rust, reimplementing the detection behavior of a mature Python tool (ScanCode) that took a decade to build. A small human team wrote it in about four months, mostly by directing AI agents, for around $20,000 in tokens.
+Provenant is a license, copyright, and SBOM scanner — today more than 300,000 lines of Rust — reimplementing the detection behavior of a mature Python tool (ScanCode) that took a decade to build. A small human team built the bulk of it in about four months, mostly by directing AI agents, for around $20,000 in tokens.
 
 Those numbers are easy to misread as "AI wrote our software for us." That's not what happened, and the gap between what people imagine and what it actually took is the interesting part.
 
@@ -43,7 +43,7 @@ Two things surprised us.
 
 This is the part the hype skips. A running loop is not a fire-and-forget machine.
 
-- **Drift.** What you don't legislate, the agent invents. Leave a gap in your constraints and it fills it — sometimes usefully, sometimes with 4,000-line files that then become impossible for the agent to edit.
+- **Drift.** What you don't legislate, the agent invents. Leave a gap in your constraints and it fills it — sometimes usefully, sometimes with sprawling files so large the agent then struggles to edit them.
 - **Slow feedback on loop health.** The loop optimizes its target; it will not tell you when _it_ is sick. Noticing that a loop has quietly gone off the rails is the human's job, and the signal is often slow.
 - **Stuck loops don't self-recover.** A task that's too hard produces an agent that resets its own progress, thrashes through compactions, or runs away. Left alone, it burns tokens going nowhere.
 - **The 24/7 trap.** Once a loop works, you have a coding machine that runs around the clock — and wants to be maintained around the clock. It becomes an on-call problem: you check in at night and find it broke hours ago.

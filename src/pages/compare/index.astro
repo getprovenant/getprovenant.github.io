@@ -44,7 +44,7 @@ const jsonLd = {
       </figure>
 
       <div class="method">
-        <b>How this was measured.</b> Both scanners run on identical checkouts at pinned commits, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below come from a run on the current build (Provenant {bench.version}) at the commit noted, refreshed on each stable release.
+        <b>How this was measured.</b> Both scanners run on identical checkouts at pinned commits, with the same scan profile, through Provenant's <code>compare-outputs</code> tool. It reduces each scan to normalized per-file findings, diffs them, and classifies every difference by direction. Speed figures are from <code>docs/BENCHMARKS.md</code>. The quality figures below come from a run on the current stable build at the commit noted, refreshed on each stable release.
       </div>
     </section>
 
@@ -71,7 +71,7 @@ const jsonLd = {
         <div class="snippet"><span class="path">lib/mqtt.c:9</span> * Copyright (C) Björn Stenberg, &lt;bjorn@haxx.se&gt;</div>
         <div class="why">The source spells the author <b>Björn</b>. ScanCode ASCII-folds it to <b>Bjorn</b>; Provenant keeps the name exactly as written — the difference between attributing a person correctly or not.</div>
       </div>
-      <div class="repro"><span class="k">repo</span> <span class="v">curl/curl @ 2bb5c9b</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">{bench.version}</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+      <div class="repro"><span class="k">repo</span> <span class="v">curl/curl @ 2bb5c9b</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
     </section>
 
     <section class="repo">
@@ -108,7 +108,7 @@ const jsonLd = {
  RSALv2/SSPLv1/AGPLv3 at your option as referenced in the LICENSE.txt file.</div>
         <div class="why">Redis's docs name the “RSALv2/SSPLv1/AGPLv3” tri-license as prose several times. ScanCode emits a detection for each mention; Provenant reports AGPL once — the file's license conclusion is identical, with less repetition to review.</div>
       </div>
-      <div class="repro"><span class="k">repo</span> <span class="v">redis/redis @ 5b5c326</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">{bench.version}</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+      <div class="repro"><span class="k">repo</span> <span class="v">redis/redis @ 5b5c326</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
     </section>
 
     <section class="repo">
@@ -129,7 +129,7 @@ members = ["tokio", "tokio-util", "tokio-stream", "tokio-macros",
            "tokio-test", "benches", "examples", "stress-test", …]</div>
         <div class="why">tokio is a Cargo workspace of 12 crates sharing one lockfile. Provenant resolves the workspace and attributes each nested source to the crate that owns it (here <code>benches/</code> → the <code>benches</code> member); across the workspace it attributes <b>850</b> files that ScanCode leaves with no package owner — ScanCode links only the 12 manifest files themselves. That file→package graph is what turns a flat list of detections into a per-component inventory — which package each finding actually belongs to.</div>
       </div>
-      <div class="repro"><span class="k">repo</span> <span class="v">tokio-rs/tokio @ f2189d3</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">provenant</span> <span class="v">{bench.version}</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
+      <div class="repro"><span class="k">repo</span> <span class="v">tokio-rs/tokio @ f2189d3</span> · <span class="k">profile</span> <span class="v">-clupe --system-package --strip-root</span> · <span class="k">reference</span> <span class="v">ScanCode Toolkit</span> · <span class="k">refreshed at each stable release</span></div>
     </section>
 
     <section class="repo">

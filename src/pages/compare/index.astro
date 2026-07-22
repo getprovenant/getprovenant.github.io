@@ -50,21 +50,19 @@ const jsonLd = {
 
     <section class="repo">
       <h2>curl <span class="repo-mono">github.com/curl/curl</span></h2>
-      <p class="tagline">The reference and Provenant agree on nearly every license conclusion. Where they diverge on copyright, Provenant is the more faithful of the two.</p>
+      <p class="tagline">The reference and Provenant agree on nearly every license conclusion. Where they diverge on copyright, Provenant is the more faithful of the two — it keeps the “, et al.” that flags additional holders, and preserves non-ASCII names the reference folds away.</p>
       <div class="scorecard">
         <div class="s"><div class="sv tabnums">4,266</div><div class="sl">files compared</div></div>
         <div class="s"><div class="sv pv tabnums">99.9%</div><div class="sl">identical license detection (trust baseline)</div></div>
-        <div class="s"><div class="sv pv tabnums">800</div><div class="sl">files where PV keeps the full copyright line</div></div>
+        <div class="s"><div class="sv pv tabnums">2,150</div><div class="sl">files where PV keeps “, et al.” and the reference drops it</div></div>
         <div class="s"><div class="sv pv">verbatim</div><div class="sl">non-ASCII names &amp; punctuation preserved</div></div>
       </div>
       <div class="delta">
-        <div class="dh"><span class="pill pill-teal">Copyright fidelity</span><h3>Keeps the whole copyright line</h3></div>
-        <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;</span><span class="ct">×800 files</span></div>
-        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;<span class="keep">, et al.</span> <span class="keep">SPDX-License-Identifier: curl</span></span><span class="ct">×800 files</span></div>
-        <div class="snippet"><span class="path">lib/url.c</span> * Copyright (C) Daniel Stenberg, &lt;daniel@haxx.se&gt;, et al.
- *
- * SPDX-License-Identifier: curl</div>
-        <div class="why">ScanCode drops the <b>“, et al.”</b> — which signals that <b>other copyright holders exist</b> — and the trailing SPDX identifier. Provenant reports the header line as written.</div>
+        <div class="dh"><span class="pill pill-teal">Copyright fidelity</span><h3>Keeps the “, et al.” that flags other holders</h3></div>
+        <div class="cmp"><span class="lbl sc">ScanCode</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;</span><span class="ct">×2,150 files</span></div>
+        <div class="cmp"><span class="lbl pv">Provenant</span><span class="val">Copyright (c) Daniel Stenberg, &lt;daniel@haxx.se&gt;<span class="keep">, et al</span></span><span class="ct">×2,150 files</span></div>
+        <div class="snippet"><span class="path">docs/testcurl.md</span> Copyright (C) Daniel Stenberg, &lt;daniel@haxx.se&gt;, et al.</div>
+        <div class="why">The source ends the notice with <b>“, et al.”</b> — the signal that <b>other copyright holders exist</b>. ScanCode discards it; Provenant keeps it, so the holder line still reads as incomplete rather than pointing at one person.</div>
       </div>
       <div class="delta">
         <div class="dh"><span class="pill pill-teal">Copyright fidelity</span><h3>Preserves non-ASCII names</h3></div>
@@ -161,7 +159,7 @@ members = ["tokio", "tokio-util", "tokio-stream", "tokio-macros",
 
   .snippet { font-family: var(--mono); font-size: 0.76rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word;
     background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px;
-    padding: 0.65rem 0.8rem; margin: 0.75rem 1.2rem 0.2rem; color: var(--ink); overflow-x: auto; }
+    padding: 0.65rem 0.8rem; margin: 0.75rem 1.2rem; color: var(--ink); overflow-x: auto; }
   .snippet .path { display: block; color: var(--brass-ink); font-size: 0.68rem; letter-spacing: 0.04em; margin-bottom: 0.4rem; }
 
   .chart { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 1rem; margin: 1.5rem 0; }

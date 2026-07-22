@@ -34,7 +34,7 @@ We treat that lineage as part of the engineering, not a footnote:
 - **Every modification to the license dataset is documented** — each rule we change, remove, or add carries a justification.
 - **Each scan records which license dataset it used** and how that dataset was modified.
 
-You don't credit a project by name in your very first release if your goal is to hide it. Building openly on excellent open-source work, with credit, is the whole point — and it's why we make Provenant's own output more transparent about its provenance than most tools bother to be.
+None of this is what hiding a source looks like — the credit sits in the `NOTICE`, in the file headers, and in the provenance Provenant reports for its own license data. Building openly on excellent open-source work, with credit, is the whole point — and it's why we make Provenant's own output more transparent about its provenance than most tools bother to be.
 
 ## How it was built
 

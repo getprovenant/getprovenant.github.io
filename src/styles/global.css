@@ -83,8 +83,9 @@ code, kbd { font-family: var(--mono); }
 .nav { margin-left: auto; display: flex; align-items: center; gap: 1.35rem; }
 .nav a { font-size: 0.9rem; color: var(--ink-soft); text-decoration: none; }
 .nav a:hover, .nav a[aria-current] { color: var(--ink); }
-.nav a.ghlink { font-family: var(--mono); font-size: 0.82rem; color: var(--ink); border: 1px solid var(--border-strong);
-  padding: 0.32rem 0.7rem; border-radius: 7px; }
+.nav a.ghlink { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--mono); font-size: 0.82rem;
+  color: var(--ink); border: 1px solid var(--border-strong); padding: 0.32rem 0.7rem; border-radius: 7px; }
+.nav a.ghlink svg { display: block; }
 .nav a.ghlink:hover { border-color: var(--teal); color: var(--teal-ink); }
 @media (max-width: 620px) { .nav a.hide-sm { display: none; } }
 

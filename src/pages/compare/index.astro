@@ -154,6 +154,24 @@ pkg:rpm/amzn/glibc@2.26-39.amzn2?arch=x86_64</div>
     </section>
 
     <section class="repo">
+      <h2>The SBOMs behind these scans</h2>
+      <p class="tagline">Every scan above also produces a full SPDX and CycloneDX SBOM — and every resolved dependency is a real component, not a dangling reference.</p>
+      <div class="scorecard">
+        <div class="s"><div class="sv pv tabnums">114</div><div class="sl">components in the ripgrep SBOM</div></div>
+        <div class="s"><div class="sv pv tabnums">45</div><div class="sl">components in the express SBOM</div></div>
+        <div class="s"><div class="sv pv tabnums">54</div><div class="sl">components in the flask SBOM</div></div>
+        <div class="s"><div class="sv pv tabnums">0</div><div class="sl">dangling dependency references, in any of them</div></div>
+      </div>
+      <div class="delta">
+        <div class="dh"><span class="pill pill-teal">Complete inventory</span><h3>An SBOM you can actually consume</h3></div>
+        <div class="why">Provenant promotes every resolved dependency to a component with a package URL and closes the dependency graph — no <code>dependsOn</code> edge points at something the document never lists. A packages-only SBOM names just the top-level project while its relationships still reference materials it never enumerates. The full SPDX + CycloneDX documents for ripgrep, express, flask, and tokio are checked into the repository.</div>
+      </div>
+      <div class="cta-row" style="margin-top:1.2rem">
+        <a class="btn btn-primary" href="https://github.com/getprovenant/provenant/tree/main/examples/sbom">Browse the SBOM examples →</a>
+      </div>
+    </section>
+
+    <section class="repo">
       <p style="color:var(--ink-soft)">These are four worked examples from a much larger benchmark set spanning source repositories and build artifacts. The full timing table across {bench.runs} recorded runs — with every commit and image digest pinned — lives in <a href="https://github.com/getprovenant/provenant/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>, and every comparison here can be reproduced with the <code>compare-outputs</code> tool in the repository.</p>
       <div class="cta-row" style="margin-top:1.2rem">
         <a class="btn btn-primary" href="https://github.com/getprovenant/provenant#quick-start">Try Provenant</a>

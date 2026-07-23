@@ -74,7 +74,7 @@ code, kbd { font-family: var(--mono); }
   backdrop-filter: saturate(1.4) blur(10px);
   border-bottom: 1px solid var(--border);
 }
-.site-head .bar { display: flex; align-items: center; gap: 1.5rem; height: 3.6rem; }
+.site-head .bar { display: flex; align-items: center; gap: 1.5rem; height: 3.6rem; position: relative; }
 /* Wordmark: the lineage-graph mark + "Provenant" (no per-letter coloring). */
 .brand { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono);
   font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
@@ -87,11 +87,30 @@ code, kbd { font-family: var(--mono); }
   color: var(--ink); border: 1px solid var(--border-strong); padding: 0.32rem 0.7rem; border-radius: 7px; }
 .nav a.ghlink svg { display: block; }
 .nav a.ghlink:hover { border-color: var(--teal); color: var(--teal-ink); }
-@media (max-width: 620px) { .nav a.hide-sm { display: none; } }
+.nav-toggle { display: none; margin-left: auto; align-items: center; justify-content: center;
+  color: var(--ink); background: none; border: 1px solid var(--border-strong); border-radius: 7px;
+  padding: 0.4rem; cursor: pointer; }
+.nav-toggle:hover { border-color: var(--teal); color: var(--teal-ink); }
+.nav-toggle svg { display: block; }
+
+@media (max-width: 620px) {
+  .nav-toggle { display: inline-flex; }
+  .nav {
+    position: absolute; top: calc(100% + 1px); left: 0; right: 0; margin-left: 0; z-index: 20;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    box-shadow: 0 14px 26px -14px rgba(0, 0, 0, 0.4);
+    padding: 0.25rem 1rem 0.9rem; display: none;
+  }
+  .nav[data-open] { display: flex; }
+  .nav a { font-size: 1rem; padding: 0.8rem 0.1rem; border-bottom: 1px solid var(--border); }
+  .nav a:last-child { border-bottom: none; }
+  .nav a.ghlink { justify-content: center; margin-top: 0.7rem; padding: 0.6rem; border: 1px solid var(--border-strong); }
+}
 
 /* ---- Shared type ---- */
 .eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--teal-ink); margin: 0 0 0.9rem; display: flex; align-items: center; gap: 0.6rem; }
+  color: var(--teal-ink); margin: 0 0 0.9rem; display: flex; align-items: center; gap: 0.6rem; text-wrap: balance; }
 .eyebrow::before { content: ""; width: 1.5rem; height: 2px; background: var(--teal); }
 
 /* ---- Buttons / install ---- */

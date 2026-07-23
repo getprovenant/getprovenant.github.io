@@ -109,6 +109,10 @@ const ogImageAbs = new URL(ogImage, site).href;
         });
         nav.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+        // Close on tap/click outside the open menu (the toggle handles its own clicks).
+        document.addEventListener('click', (e) => {
+          if (nav.hasAttribute('data-open') && !nav.contains(e.target) && !btn.contains(e.target)) close();
+        });
       })();
     </script>
   </body>
